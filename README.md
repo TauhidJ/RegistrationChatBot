@@ -4,6 +4,10 @@ A web-based chatbot for registration purposes. This chatbot guides users step by
 
 <img src="https://github.com/user-attachments/assets/d4873305-553a-400c-9a99-e80c064c822c" width="350" alt="Chatbot Screenshot" />
 
+## Live Demo
+
+Try the chatbot online here: [https://tauhidj.github.io/RegistrationChatBot/](https://tauhidj.github.io/RegistrationChatBot/)
+
 ## Features
 
 - **Step-by-step registration**  
@@ -38,7 +42,7 @@ A web-based chatbot for registration purposes. This chatbot guides users step by
 
 ## Usage
 
-1. Open `RegistrationChatBot.html` in a modern web browser.  
+1. Open `RegistrationChatBot.html` in a modern web browser **or** use the [live demo](https://tauhidj.github.io/RegistrationChatBot/).  
 2. Follow the prompts in the chatbot interface.  
 3. Click **Export JSON** at the end to download the registration data.
 
