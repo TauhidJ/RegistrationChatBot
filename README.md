@@ -2,7 +2,7 @@
 
 A web-based chatbot for registration purposes. This chatbot guides users step by step through a registration process and can export all collected data as a JSON file.
 
-![Chatbot Screenshot](https://github.com/user-attachments/assets/a8cab3d0-5501-4a18-8529-9d6e8a4945a4)
+<img src="https://github.com/user-attachments/assets/d4873305-553a-400c-9a99-e80c064c822c" width="350" alt="Chatbot Screenshot" />
 
 ## Features
 
