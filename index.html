@@ -5,40 +5,163 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Registration Chatbot</title>
 <style>
-body { font-family: Inter, system-ui, Segoe UI, Roboto, Arial; margin:0; background:#f6f8fb; color:#0f172a; }
-.app { max-width:600px; margin:40px auto; background:#fff; padding:20px; border-radius:12px; box-shadow:0 .5rem 1rem rgba(0,0,0,.15) !important; }
-.messages { max-height:500px; overflow:auto; margin-bottom:12px; }
-.msg { display:flex; margin:8px 0; align-items:flex-end; }
-.bot { justify-content:flex-start; }
-.user { justify-content:flex-end; }
-.bubble { padding:10px 14px; border-radius:12px; max-width:80%; }
-.bubble.bot { background:#eef3ff; color:#061433; border-bottom-left-radius:4px; }
-.bubble.user { background:#0f172a; color:#fff; border-bottom-right-radius:4px; }
-.controls { display:flex; gap:8px; }
-input { flex:1; padding:10px; border-radius:8px; border:1px solid #e6e9ef; }
-button { background:#246bff; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; }
-.button:hover{ background:#1d54ca !important; }
-.header { background:#dc3545; padding:.1rem 1rem; gap:8px; border-radius:10px; color:#fff; text-align:left; margin-bottom:16px; }
-.header-icon { width:30px; height:30px; vertical-align:middle; margin-right:15px; margin-top:-5px; }
-.footer { margin-top:12px; display:flex; justify-content:space-between; align-items:center; font-size:14px; color:#6b7280; }
-.export-btn { background:#FEDE10; color:#000; padding:10px 24px !important; }
-.export-btn:hover{ background:#e1c825 !important; }
-.option-btn { background:#eef3ff; color:#061433; margin:4px; border-radius:6px; padding:6px 12px; cursor:pointer; border:none; }
-.bot-icon { font-size:18px; margin-right:8px; }
-.msg.bot { display:flex; align-items:flex-end; }
-.bubble.bot { display:inline-block; }
+body {
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+  margin: 0;
+  background: #e5e7eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app {
+  width: 390px; /* fixed mobile width */
+  height: 780px; /* fixed mobile height */
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.header {
+  background: #dc3545;
+  color: #fff;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+}
+
+.header-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 14px;
+  background: #f6f8fb;
+}
+
+.msg {
+  display: flex;
+  margin: 8px 0;
+}
+
+.msg.bot { justify-content: flex-start; }
+.msg.user { justify-content: flex-end; }
+
+.bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 75%;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.bubble.bot {
+  background: #eef3ff;
+  color: #061433;
+  border-bottom-left-radius: 4px;
+}
+
+.bubble.user {
+  background: #0f172a;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.bot-icon {
+  font-size: 18px;
+  margin-right: 8px;
+}
+
+.controls {
+  display: flex;
+  padding: 10px;
+  background: #fff;
+  border-top: 1px solid #e6e9ef;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e6e9ef;
+}
+
+button {
+  background: #246bff;
+  color: #fff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1d54ca;
+}
+
+.option-btn {
+  background: #eef3ff;
+  color: #061433;
+  margin: 4px;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.footer {
+  background: #fff;
+  padding: 10px;
+  border-top: 1px solid #e6e9ef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.export-btn {
+  background: #FEDE10;
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+}
+
+.export-btn:hover {
+  background: #e1c825;
+}
+
+/* Make it adapt nicely on real phones */
+@media (max-width: 420px) {
+  body { height: auto; background: #fff; }
+  .app { width: 100%; height: 100vh; border-radius: 0; box-shadow: none; }
+}
 </style>
 </head>
 <body>
+
 <div class="app">
   <div class="header">
-    <h2><img src="https://happyfeetkcstg.wpenginepowered.com/wp-content/uploads/2025/10/ball-football-icon-1.svg" class="header-icon" />Registration Chatbot</h2>
+    <img src="https://happyfeetkcstg.wpenginepowered.com/wp-content/uploads/2025/10/ball-football-icon-1.svg" class="header-icon" />
+    <h2 style="font-size: 16px; margin: 0;">Registration Chatbot</h2>
   </div>
   <div class="messages" id="messages" aria-live="polite"></div>
   <div class="controls">
     <input id="userInput" type="text" placeholder="Type your answer..." />
-    <button id="sendBtn" class="button">Send</button>
-    <button id="hintBtn" class="button">Next</button>
+    <button id="sendBtn">Send</button>
+    <button id="hintBtn">Next</button>
   </div>
   <div class="footer">
     <div id="progress">0 / 0 answered</div>
@@ -47,41 +170,41 @@ button { background:#246bff; color:#fff; border:none; padding:10px 14px; border-
 </div>
 
 <script>
-const messagesEl = document.getElementById('messages');
-const userInput = document.getElementById('userInput');
-const sendBtn = document.getElementById('sendBtn');
-const hintBtn = document.getElementById('hintBtn');
-const exportBtn = document.getElementById('exportBtn');
-const progressEl = document.getElementById('progress');
+const messagesEl=document.getElementById('messages');
+const userInput=document.getElementById('userInput');
+const sendBtn=document.getElementById('sendBtn');
+const hintBtn=document.getElementById('hintBtn');
+const exportBtn=document.getElementById('exportBtn');
+const progressEl=document.getElementById('progress');
 
-const registrationFlow = [
-  { id: "verifyPhone", question: "📱 Please enter your phone number:", type: "tel", validation: /^\d{10}$/ },
-  { id: "verifyEmail", question: "📧 Please enter your email address:", type: "email" },
-  { id: "phoneOtpCode", question: "🔑 Enter the OTP sent to your phone:", type: "number", validation: /^\d{6}$/ },
-  { id: "emailOtpCode", question: "🔑 Enter the OTP sent to your email:", type: "number", validation: /^\d{6}$/ },
-  { id: "guardianFirstName", question: "👨‍👩‍👦 What’s the guardian’s first name?", type: "text" },
-  { id: "guardianLastName", question: "And the guardian’s last name?", type: "text" },
-  { id: "guardianAddress", question: "🏠 Please enter the guardian’s address:", type: "text" },
-  { id: "guardianZip", question: "📮 ZIP code please:", type: "text", validation: /^\d{5,6}$/ },
-  { id: "playerFirstName", question: "⚽ What’s the player’s first name?", type: "text" },
-  { id: "playerLastName", question: "Player’s last name?", type: "text" },
-  { id: "playerDob", question: "📅 What’s the player’s date of birth?", type: "date" },
-  { id: "playerGender", question: "Select player’s gender (Male/Female):", type: "select", options: ["Male","Female"] },
-  { id: "playerSchool", question: "🏫 Which school does the player attend?", type: "text" },
-  { id: "programType", question: "Do you want Classes or Leagues?", type: "select", options: ["Classes","Leagues"] },
-  { id: "programList", question: "📋 Select your program:", type: "select", options: [] },
-  { id: "waiverName", question: "✍️ Enter full name for waiver agreement:", type: "text" },
-  { id: "cardholderName", question: "💳 Cardholder name for payment?", type: "text" },
-  { id: "card-element", question: "💳 Enter your card details:", type: "payment" }
+const registrationFlow=[
+  {id:"verifyPhone",question:"📱 Please enter your phone number:",type:"tel",validation:/^\d{10}$/},
+  {id:"verifyEmail",question:"📧 Please enter your email address:",type:"email"},
+  {id:"phoneOtpCode",question:"🔑 Enter the OTP sent to your phone:",type:"number",validation:/^\d{6}$/},
+  {id:"emailOtpCode",question:"🔑 Enter the OTP sent to your email:",type:"number",validation:/^\d{6}$/},
+  {id:"guardianFirstName",question:"👨‍👩‍👦 What’s the guardian’s first name?",type:"text"},
+  {id:"guardianLastName",question:"And the guardian’s last name?",type:"text"},
+  {id:"guardianAddress",question:"🏠 Please enter the guardian’s address:",type:"text"},
+  {id:"guardianZip",question:"📮 ZIP code please:",type:"text",validation:/^\d{5,6}$/},
+  {id:"playerFirstName",question:"⚽ What’s the player’s first name?",type:"text"},
+  {id:"playerLastName",question:"Player’s last name?",type:"text"},
+  {id:"playerDob",question:"📅 What’s the player’s date of birth?",type:"date"},
+  {id:"playerGender",question:"Select player’s gender (Male/Female):",type:"select",options:["Male","Female"]},
+  {id:"playerSchool",question:"🏫 Which school does the player attend?",type:"text"},
+  {id:"programType",question:"Do you want Classes or Leagues?",type:"select",options:["Classes","Leagues"]},
+  {id:"programList",question:"📋 Select your program:",type:"select",options:[]},
+  {id:"waiverName",question:"✍️ Enter full name for waiver agreement:",type:"text"},
+  {id:"cardholderName",question:"💳 Cardholder name for payment?",type:"text"},
+  {id:"card-element",question:"💳 Enter your card details:",type:"payment"}
 ];
 
-let state = { currentIndex:0, answers:{} };
+let state={currentIndex:0,answers:{}};
 
-function appendMessage(text, who='bot'){
-  const wrap = document.createElement('div');
-  wrap.className = 'msg ' + (who==='bot'?'bot':'user');
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble ' + (who==='bot'?'bot':'user');
+function appendMessage(text,who='bot'){
+  const wrap=document.createElement('div');
+  wrap.className='msg '+(who==='bot'?'bot':'user');
+  const bubble=document.createElement('div');
+  bubble.className='bubble '+(who==='bot'?'bot':'user');
   if(who==='bot'){
     const icon=document.createElement('span');
     icon.textContent='🤖';
@@ -95,139 +218,88 @@ function appendMessage(text, who='bot'){
 }
 
 function updateProgress(){
-  progressEl.textContent = `${Object.keys(state.answers).length} / ${registrationFlow.length} answered`;
+  progressEl.textContent=`${Object.keys(state.answers).length} / ${registrationFlow.length} answered`;
 }
 
-function validateAnswer(q, value){
-  if(q.validation && !q.validation.test(value)) return false;
-  if(q.type!=='payment' && !value.trim()) return false;
+function validateAnswer(q,value){
+  if(q.validation&&!q.validation.test(value))return false;
+  if(q.type!=='payment'&&!value.trim())return false;
   return true;
 }
 
 async function fetchPrograms(programType){
   const url="https://happyfeetaws-webapp-qa.troohly.com/API/programs_endpoint";
-  const payload={
-    action: programType==="Classes"?"get_classes":"get_programs",
-    centre_token:"703815aa634bf10c4c8f3ea596e46e6f",
-    playerUserID:null
-  };
+  const payload={action:programType==="Classes"?"get_classes":"get_programs",centre_token:"703815aa634bf10c4c8f3ea596e46e6f",playerUserID:null};
   try{
     const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const data=await res.json();
-    if(programType==="Classes"&&data.classes){
-      return data.classes.map(c=>({ id: c.id, name: `${c.name} (${c.week_day} ${c.start_time}-${c.end_time})` }));
-    }
-    if(programType==="Leagues"&&data.programs){
-      return data.programs.map(p=>({ id: p.id, name: `${p.name} (${p.start_date} - ${p.end_date})` }));
-    }
+    if(programType==="Classes"&&data.classes){return data.classes.map(c=>({id:c.id,name:`${c.name} (${c.week_day} ${c.start_time}-${c.end_time})`}));}
+    if(programType==="Leagues"&&data.programs){return data.programs.map(p=>({id:p.id,name:`${p.name} (${p.start_date} - ${p.end_date})`}));}
     return [];
-  }catch(e){
-    appendMessage("⚠️ Failed to load programs. Please try again later.",'bot');
-    return [];
-  }
+  }catch(e){appendMessage("⚠️ Failed to load programs. Please try again later.",'bot');return [];}
 }
 
 async function fetchGear(programType){
   const url="https://happyfeetaws-webapp-qa.troohly.com/API/programs_endpoint";
-  const payload={
-    action:"get_gear",
-    centre_token:"703815aa634bf10c4c8f3ea596e46e6f",
-    gear_type: programType==="Classes"?"school":"program"
-  };
+  const payload={action:"get_gear",centre_token:"703815aa634bf10c4c8f3ea596e46e6f",gear_type:programType==="Classes"?"school":"program"};
   try{
     const res=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const data=await res.json();
     return data.gear||[];
-  }catch(e){
-    appendMessage("⚠️ Failed to load gear. You can skip this step.",'bot');
-    return [];
-  }
+  }catch(e){appendMessage("⚠️ Failed to load gear. You can skip this step.",'bot');return [];}
 }
 
-async function selectAttribute(attrName, options){
+async function selectAttribute(attrName,options){
   return new Promise(resolve=>{
     appendMessage(`Select ${attrName}:`,'bot');
     options.forEach(opt=>{
       const btn=document.createElement('button');
       btn.textContent=opt.name;
       btn.className='option-btn';
-      btn.onclick=()=>{
-        appendMessage(opt.name,'user');
-        document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-        resolve({ id: opt.id, name: opt.name });
-      };
+      btn.onclick=()=>{appendMessage(opt.name,'user');document.querySelectorAll('.option-btn').forEach(b=>b.remove());resolve({id:opt.id,name:opt.name});};
       messagesEl.appendChild(btn);
     });
   });
 }
 
-// ✅ Ask gear and allow multiple selections (store only IDs)
 async function askGear(programType){
   appendMessage("🎒 Gear Selection (Optional): You can select one or more or skip.",'bot');
   const gearList=await fetchGear(programType);
-  if(gearList.length===0){ skipToNextAfterPrograms(); return; }
-
+  if(gearList.length===0){skipToNextAfterPrograms();return;}
   userInput.disabled=true;
-  if(!Array.isArray(state.answers.gear)) state.answers.gear=[];
-
+  if(!Array.isArray(state.answers.gear))state.answers.gear=[];
   gearList.forEach(gear=>{
     const btn=document.createElement('button');
     btn.textContent=`${gear.gear_name} - $${gear.amount}`;
     btn.className='option-btn';
     btn.onclick=async()=>{
       appendMessage(btn.textContent,'user');
-      const selection={ gear_id: gear.gear_id };
-
-      if(gear.attributes.size){
-        const sizeSel = await selectAttribute("Size", gear.attributes.size);
-        selection.size_id = sizeSel.id;
-      }
-      if(gear.attributes.color){
-        const colorSel = await selectAttribute("Color", gear.attributes.color);
-        selection.color_id = colorSel.id;
-      }
-
+      const selection={gear_id:gear.gear_id};
+      if(gear.attributes.size){const sizeSel=await selectAttribute("Size",gear.attributes.size);selection.size_id=sizeSel.id;}
+      if(gear.attributes.color){const colorSel=await selectAttribute("Color",gear.attributes.color);selection.color_id=colorSel.id;}
       state.answers.gear.push(selection);
       document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-
-      appendMessage("Would you like to select another gear? (Yes/No)", 'bot');
+      appendMessage("Would you like to select another gear? (Yes/No)",'bot');
       const yesBtn=document.createElement('button');
-      yesBtn.textContent="Yes";
-      yesBtn.className='option-btn';
-      yesBtn.onclick=()=>{
-        document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-        askGear(programType);
-      };
+      yesBtn.textContent="Yes";yesBtn.className='option-btn';
+      yesBtn.onclick=()=>{document.querySelectorAll('.option-btn').forEach(b=>b.remove());askGear(programType);};
       messagesEl.appendChild(yesBtn);
-
       const noBtn=document.createElement('button');
-      noBtn.textContent="No";
-      noBtn.className='option-btn';
-      noBtn.onclick=()=>{
-        document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-        userInput.disabled=false;
-        skipToNextAfterPrograms();
-      };
+      noBtn.textContent="No";noBtn.className='option-btn';
+      noBtn.onclick=()=>{document.querySelectorAll('.option-btn').forEach(b=>b.remove());userInput.disabled=false;skipToNextAfterPrograms();};
       messagesEl.appendChild(noBtn);
     };
     messagesEl.appendChild(btn);
   });
-
   const skipBtn=document.createElement('button');
-  skipBtn.textContent="Skip";
-  skipBtn.className='option-btn';
-  skipBtn.onclick=()=>{
-    appendMessage("Skipped",'user');
-    document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-    userInput.disabled=false;
-    skipToNextAfterPrograms();
-  };
+  skipBtn.textContent="Skip";skipBtn.className='option-btn';
+  skipBtn.onclick=()=>{appendMessage("Skipped",'user');document.querySelectorAll('.option-btn').forEach(b=>b.remove());userInput.disabled=false;skipToNextAfterPrograms();};
   messagesEl.appendChild(skipBtn);
 }
 
 function skipToNextAfterPrograms(){
-  const nextIndex = registrationFlow.findIndex(x=>x.id==="programList") + 2;
-  state.currentIndex = nextIndex;
+  const nextIndex=registrationFlow.findIndex(x=>x.id==="programList")+2;
+  state.currentIndex=nextIndex;
   askCurrent();
 }
 
@@ -235,12 +307,7 @@ async function handleUserText(raw){
   const text=raw.trim();
   if(!text)return;
   const q=registrationFlow[state.currentIndex];
-  if(!validateAnswer(q,text)){
-    appendMessage('⚠️ Invalid input. Please try again.','bot');
-    userInput.value='';
-    return;
-  }
-
+  if(!validateAnswer(q,text)){appendMessage('⚠️ Invalid input. Please try again.','bot');userInput.value='';return;}
   if(q.id==="programType"){
     appendMessage(text,'user');
     state.answers[q.id]=text;
@@ -252,17 +319,11 @@ async function handleUserText(raw){
       const btn=document.createElement('button');
       btn.textContent=opt.name;
       btn.className='option-btn';
-      btn.onclick=async()=>{
-        appendMessage(opt.name,'user');
-        state.answers[programQ.id]=opt.id;
-        document.querySelectorAll('.option-btn').forEach(b=>b.remove());
-        await askGear(text);
-      };
+      btn.onclick=async()=>{appendMessage(opt.name,'user');state.answers[programQ.id]=opt.id;document.querySelectorAll('.option-btn').forEach(b=>b.remove());await askGear(text);};
       messagesEl.appendChild(btn);
     });
     return;
   }
-
   appendMessage(text,'user');
   state.answers[q.id]=text;
   state.currentIndex++;
@@ -272,11 +333,7 @@ async function handleUserText(raw){
 }
 
 function askCurrent(){
-  if(state.currentIndex>=registrationFlow.length){
-    appendMessage("✅ All done! You can export your data below.",'bot');
-    updateProgress();
-    return;
-  }
+  if(state.currentIndex>=registrationFlow.length){appendMessage("✅ All done! You can export your data below.",'bot');updateProgress();return;}
   const q=registrationFlow[state.currentIndex];
   appendMessage(q.question,'bot');
   if(q.type==="select"&&q.options.length){
@@ -292,29 +349,14 @@ function askCurrent(){
   updateProgress();
 }
 
-userInput.addEventListener('keydown',e=>{
-  if(e.key==='Enter'){e.preventDefault();sendBtn.click();}
-});
+userInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendBtn.click();}});
 sendBtn.addEventListener('click',()=>handleUserText(userInput.value));
-hintBtn.addEventListener('click',()=>{
-  if(state.currentIndex<registrationFlow.length){
-    appendMessage(`💡 Hint: ${registrationFlow[state.currentIndex].question}`,'bot');
-  }else appendMessage("✅ No more questions.",'bot');
-});
-
-exportBtn.addEventListener('click',()=>{
-  const blob=new Blob([JSON.stringify(state.answers,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='registration.json';a.click();
-  URL.revokeObjectURL(url);
-});
+hintBtn.addEventListener('click',()=>{if(state.currentIndex<registrationFlow.length){appendMessage(`💡 Hint: ${registrationFlow[state.currentIndex].question}`,'bot');}else appendMessage("✅ No more questions.",'bot');});
+exportBtn.addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state.answers,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='registration.json';a.click();URL.revokeObjectURL(url);});
 
 appendMessage("Hi! Let's fill your registration form step by step.",'bot');
 askCurrent();
 </script>
-
-
-
 
 </body>
 </html>
